@@ -1,143 +1,100 @@
 # Question Paper Maker
 
-Question Paper Maker is a completely static question-paper formatting tool built with HTML, CSS and vanilla JavaScript.
+A free browser-based tool for creating clean, professional examination question papers.
 
-It is designed for educators who already have their questions and want to turn them into a clean, consistent, print-ready examination paper.
+[Open Question Paper Maker](https://cibinjoseph.github.io/question-paper-maker/)
+
+## What it does
+
+Question Paper Maker converts structured question text into a formatted, print-ready A4 question paper. The preview updates immediately as the content or formatting is changed.
+
+Everything runs inside the browser. No account, installation, or document upload is required.
 
 ## Features
 
-- Live A4 preview
-- Automatic pagination with a multi-page A4 preview
-- Toggle between stacked and side-by-side editor/preview layouts
-- Institution and exam metadata
-- Independent visibility switches for major header rows
-- Optional institution logo
-- Optional student information row
-- Individually selectable Name, Roll No., Date and Signature fields
-- Section headings
-- Consistent question numbering
-- Right-aligned marks using `[5]` or `{5}`
-- MCQ formatting
-- Bulleted sub-points
-- Calculated mark total and mismatch warning
-- Font, spacing and margin controls
-- Optional watermark
-- Local autosave using `localStorage`
-- Export/import papers as JSON
-- Editable Microsoft Word (`.docx`) export
-- Browser Print / Save as PDF
-- No backend, login, database or external network dependency
-- Static About page
-- Search-engine metadata and structured data
+* Live A4 question-paper preview
+* Automatic overflow across multiple pages
+* Stacked or side-by-side editor and preview layouts
+* Institution name, examination title, subject, course code, class, date, duration, and maximum marks
+* Optional institution logo
+* Optional student information fields
+* Section headings and unnumbered instructions
+* Automatic and consistent question numbering
+* Right-aligned marks
+* Multiple-choice question formatting
+* Bulleted sub-points
+* Automatic mark-total calculation
+* Warning when the calculated total differs from the stated maximum marks
+* Font, spacing, and page-margin controls
+* Optional watermark
+* Automatic local draft saving
+* JSON import and export for editable backups
+* Editable Microsoft Word document download
+* Print-ready PDF output
 
-## Run locally
+## Quick start
 
-You can simply double-click `index.html`.
+1. Enter the institution and examination details.
+2. Paste or type the questions in the editor.
+3. Use the formatting syntax below for sections, instructions, marks, MCQs, and sub-points.
+4. Review the generated pages in the live preview.
+5. Download an editable DOCX file or use **Print / Save PDF** for final output.
 
-For the closest behaviour to a hosted site:
-
-```bash
-python3 -m http.server 8000
-```
-
-Then open:
-
-```text
-http://localhost:8000
-```
-
-## Question syntax
+## Question formatting
 
 ```text
 # Section A
 
-Answer ALL questions.
+> Answer ALL questions.
 
 1. Define Reynolds number. [2]
 
 2. Explain induced drag. [5]
 
 [MCQ]
-Which quantity is dimensionless? [1]
+Which of the following is dimensionless? [1]
 A. Lift
 B. Reynolds number
 C. Velocity
 D. Density
 
-- Optional sub-point
-- Another sub-point
+3. Explain the following:
+- Ground effect
+- Induced velocity
+- Tip loss
 
 ---
 ```
 
-### Syntax rules
+### Syntax reference
 
-- `# Section A` creates a centered section heading.
-- `[SECTION A]` also creates a section heading.
-- A standalone unnumbered line is formatted as an unnumbered instruction.
-- `> Answer ALL questions` or `[INSTRUCTION] Answer ALL questions` explicitly creates an unnumbered instruction.
-- `[5]` or `{5}` at the end of a question sets marks.
-- `[MCQ]` starts an MCQ block.
-- `A.`, `B.`, `C.` etc. become MCQ options.
-- `- item` becomes an indented bullet under the current question.
-- `---` inserts a separator line.
-- Blank lines end the current question.
-- Typed question numbers are removed and normalized automatically.
+| Syntax                                | Result                            |
+| ------------------------------------- | --------------------------------- |
+| `# Section A`                         | Section heading                   |
+| `[SECTION A]`                         | Alternative section heading       |
+| `> Answer ALL questions.`             | Unnumbered instruction            |
+| `[INSTRUCTION] Answer ALL questions.` | Explicit unnumbered instruction   |
+| `1. Question text`                    | Numbered question                 |
+| `[5]` or `{5}`                        | Marks assigned to a question      |
+| `[MCQ]`                               | Starts a multiple-choice question |
+| `A. Option text`                      | MCQ option                        |
+| `- Sub-point`                         | Bulleted sub-point                |
+| `---`                                 | Horizontal separator              |
 
-## Deploy on GitHub Pages
+Typed question numbers are normalized automatically. A standalone sentence outside a question block remains unnumbered, making it suitable for section instructions.
 
-1. Create a new GitHub repository.
-2. Upload all files in this folder.
-3. Open the repository **Settings**.
-4. Go to **Pages**.
-5. Under **Build and deployment**, choose **Deploy from a branch**.
-6. Choose the default branch, usually `main`, and the `/root` folder.
-7. Save.
+## PDF and Word output
 
-GitHub will provide the public URL.
+Use **Print / Save PDF** when the final page layout must match the preview closely.
 
-## Search-engine setup
-
-The HTML already contains:
-
-- descriptive page titles and meta descriptions
-- crawlable explanatory content
-- semantic headings
-- internal navigation
-- Open Graph and Twitter metadata
-- `WebApplication` and `AboutPage` structured data
-- absolute canonical and Open Graph URLs
-- `robots.txt`
-- `sitemap.xml`
-
-The search metadata is configured for:
-
-`https://cibinjoseph.github.io/question-paper-maker/`
-
-You can submit `sitemap.xml` to Google Search Console and Bing Webmaster Tools for faster discovery.
+Use **Download DOCX** when the paper needs further editing in Microsoft Word. Word may paginate the document differently from the browser preview.
 
 ## Privacy
 
-Everything runs in the browser. The app does not send question content to a server.
+Question content and imported logos remain in the browser. They are not uploaded to a server.
 
-The last paper is stored in the browser's `localStorage`. Imported logos are stored there as data URLs as part of the saved draft.
+The current draft is stored locally in the browser so it can be restored when the website is reopened.
 
-## PDF output
+## Creator
 
-Use **Print / Save PDF**.
-
-Recommended browser print settings:
-
-- Paper size: A4
-- Scale: 100%
-- Browser headers and footers: Off
-
-## DOCX output
-
-Use **Download DOCX** to create an editable Microsoft Word document directly in the browser. Word controls its own pagination, so the DOCX may not break at exactly the same locations as the browser's A4 preview. Use PDF when exact visual output is required.
-
-DOCX generation uses the bundled [`docx`](https://github.com/dolanmiu/docx) library under the MIT License. Its license is included in `vendor/docx-LICENSE.txt`.
-
-## Notes
-
-Browser print engines control final pagination. Individual question blocks use `break-inside: avoid`, so modern browsers will usually keep each question together where possible.
+Created by [Cibin Joseph](https://github.com/cibinjoseph).
