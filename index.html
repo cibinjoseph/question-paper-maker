@@ -97,16 +97,20 @@
           <span id="saveStatus" class="save-status">Saved locally</span>
         </div>
 
-        <details class="header-visibility" open>
-          <summary>Header rows to show</summary>
-          <div class="header-visibility-grid">
-            <label><input id="headingRowEnabled" type="checkbox" checked /> Institution + exam title</label>
-            <label><input id="subjectRowEnabled" type="checkbox" checked /> Subject + course code</label>
-            <label><input id="classRowEnabled" type="checkbox" checked /> Class + date</label>
-            <label><input id="durationRowEnabled" type="checkbox" checked /> Duration + maximum marks</label>
-            <label><input id="instructionsEnabled" type="checkbox" checked /> Instructions</label>
-          </div>
-        </details>
+        <div class="settings-grid">
+          <section class="settings-group" aria-labelledby="documentHeaderLabel">
+            <h3 id="documentHeaderLabel">Document header</h3>
+
+            <details class="header-visibility" open>
+              <summary>Header rows to show</summary>
+              <div class="header-visibility-grid">
+                <label><input id="headingRowEnabled" type="checkbox" checked /> Institution + exam title</label>
+                <label><input id="subjectRowEnabled" type="checkbox" checked /> Subject + course code</label>
+                <label><input id="classRowEnabled" type="checkbox" checked /> Class + date</label>
+                <label><input id="durationRowEnabled" type="checkbox" checked /> Duration + maximum marks</label>
+                <label><input id="instructionsEnabled" type="checkbox" checked /> Instructions</label>
+              </div>
+            </details>
 
         <div class="field">
           <label for="institution">Institution</label>
@@ -151,6 +155,11 @@
           </div>
         </div>
 
+          </section>
+
+          <section class="settings-group" aria-labelledby="additionalDetailsLabel">
+            <h3 id="additionalDetailsLabel">Additional details</h3>
+
         <div class="field student-details-control">
           <label class="check-row" for="studentDetailsEnabled">
             <input id="studentDetailsEnabled" type="checkbox" />
@@ -190,9 +199,10 @@ Assume suitable data if necessary."></textarea>
           </div>
         </div>
 
-        <hr />
+          </section>
 
-        <h2 class="section-label">Appearance</h2>
+          <section class="settings-group" aria-labelledby="appearanceLabel">
+            <h3 id="appearanceLabel">Appearance and summary</h3>
 
         <div class="field">
           <label for="fontFamily">Font</label>
@@ -266,6 +276,8 @@ Assume suitable data if necessary."></textarea>
         <div id="marksWarning" class="warning hidden"></div>
 
         <button id="clearBtn" class="btn danger full">Clear current paper</button>
+          </section>
+        </div>
       </aside>
 
       <section class="panel editor-panel">
@@ -357,7 +369,6 @@ D. Density"></textarea>
             <div id="questionPreview" class="questions"></div>
 
             <footer class="paper-footer">
-              <span>Created with Question Paper Maker</span>
               <span class="page-number">Page 1 of 1</span>
             </footer>
           </article>

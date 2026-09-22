@@ -240,7 +240,7 @@ a {
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(280px, 330px) minmax(340px, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 14px;
   align-items: start;
   padding: 14px;
@@ -256,6 +256,29 @@ a {
   padding: 16px;
   position: relative;
   max-height: none;
+  grid-column: 1 / -1;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.settings-group {
+  min-width: 0;
+  height: 100%;
+  padding: 14px;
+  border: 1px solid #e3e7ee;
+  border-radius: 9px;
+  background: #fafbfc;
+}
+
+.settings-group h3 {
+  margin: 0 0 12px;
+  font-size: 13px;
+  letter-spacing: 0.01em;
 }
 
 .editor-panel {
@@ -345,12 +368,6 @@ a {
   display: flex;
   gap: 8px;
   align-items: center;
-}
-
-.settings-panel hr {
-  border: 0;
-  border-top: 1px solid var(--line);
-  margin: 16px 0;
 }
 
 .header-visibility {
@@ -536,14 +553,15 @@ a {
 
 @media (min-width: 1101px) {
   .workspace.side-by-side {
-    grid-template-columns: minmax(250px, 300px) minmax(320px, 0.85fr) minmax(520px, 1.25fr);
+    grid-template-columns: minmax(360px, 0.85fr) minmax(520px, 1.25fr);
   }
 
   .workspace.side-by-side .settings-panel {
-    position: sticky;
-    top: 86px;
-    max-height: calc(100vh - 100px);
-    overflow: auto;
+    grid-column: 1 / -1;
+    position: relative;
+    top: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   .workspace.side-by-side .preview-shell {
@@ -837,7 +855,7 @@ a {
   bottom: 7mm;
   left: var(--paper-margin);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 8mm;
   padding-top: 2mm;
   border-top: 0.5px solid #aaa;
@@ -1070,6 +1088,10 @@ a {
   .layout-toggle {
     display: none;
   }
+
+  .settings-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 820px) {
@@ -1088,6 +1110,10 @@ a {
 
   .workspace {
     display: block;
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr;
   }
 
   .panel,

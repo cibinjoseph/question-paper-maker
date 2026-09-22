@@ -299,7 +299,6 @@ function createContinuationPage(pageNumber) {
     <div class="watermark">${escapeHtml(elements.watermark.value.trim())}</div>
     <div class="questions"></div>
     <footer class="paper-footer">
-      <span>Created with Question Paper Maker</span>
       <span class="page-number"></span>
     </footer>
   `;

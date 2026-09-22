@@ -345,7 +345,7 @@
           font,
           size: 16,
           color: "666666",
-          children: ["Question Paper Maker · Page ", PageNumber.CURRENT, " of ", PageNumber.TOTAL_PAGES]
+          children: ["Page ", PageNumber.CURRENT, " of ", PageNumber.TOTAL_PAGES]
         })]
       })]
     });
@@ -354,7 +354,7 @@
       title: data.examTitle || "Question Paper",
       subject: data.subject || "Question Paper",
       creator: "Cibin Joseph",
-      description: "Created with Question Paper Maker",
+      description: "Question paper",
       features: { updateFields: true },
       sections: [{
         properties: {
