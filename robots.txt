@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cibinjoseph.github.io/question-paper-maker/sitemap.xml

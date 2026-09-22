@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Question Paper Maker - Free Question Paper Creator & Formatter</title>
+  <meta name="description" content="Create clean, print-ready exam and question papers for free. Format headers, sections, marks, MCQs and instructions, then print or save as PDF. No signup required." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="https://cibinjoseph.github.io/question-paper-maker/" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Question Paper Maker" />
+  <meta property="og:title" content="Question Paper Maker - Free Question Paper Creator & Formatter" />
+  <meta property="og:description" content="A free browser-based tool for formatting clean, print-ready exam and question papers." />
+  <meta property="og:url" content="https://cibinjoseph.github.io/question-paper-maker/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Question Paper Maker" />
+  <meta name="twitter:description" content="Create and format exam papers for free, then print or save them as PDF." />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Question Paper Maker",
+    "url": "https://cibinjoseph.github.io/question-paper-maker/",
+    "description": "A free browser-based tool for creating and formatting print-ready exam and question papers.",
+    "creator": {
+      "@type": "Person",
+      "name": "Cibin Joseph",
+      "url": "https://github.com/cibinjoseph"
+    },
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires a modern web browser with JavaScript enabled.",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    },
+    "featureList": [
+      "Live A4 question paper preview",
+      "Exam header formatting",
+      "Optional student information fields",
+      "Automatic question numbering",
+      "Marks and MCQ formatting",
+      "Local browser autosave",
+      "JSON import and export",
+      "Editable DOCX export",
+      "Print and Save as PDF"
+    ]
+  }
+  </script>
+
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Question Paper Maker home">
+      <span class="brand-title">Question Paper Maker</span>
+      <span class="brand-tagline">Free, private, print-ready question papers</span>
+    </a>
+
+    <div class="topbar-right">
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html" aria-current="page">Maker</a>
+        <a href="about.html">About</a>
+      </nav>
+
+      <div class="top-actions">
+        <label class="layout-toggle" for="sideBySideToggle" title="Place the editor to the left of the preview">
+          <input id="sideBySideToggle" type="checkbox" role="switch" aria-label="Use side-by-side editor and preview" />
+          <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
+          <span>Side-by-side</span>
+        </label>
+        <button id="sampleBtn" class="btn secondary">Load sample</button>
+        <button id="exportBtn" class="btn secondary">Export JSON</button>
+        <label class="btn secondary file-btn">
+          Import JSON
+          <input id="importInput" type="file" accept=".json,application/json" />
+        </label>
+        <button id="downloadDocxBtn" class="btn secondary">Download DOCX</button>
+        <button id="printBtn" class="btn primary">Print / Save PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="workspace" aria-label="Exam paper editor">
+      <aside class="panel settings-panel">
+        <div class="panel-heading">
+          <h2>Paper details</h2>
+          <span id="saveStatus" class="save-status">Saved locally</span>
+        </div>
+
+        <details class="header-visibility" open>
+          <summary>Header rows to show</summary>
+          <div class="header-visibility-grid">
+            <label><input id="headingRowEnabled" type="checkbox" checked /> Institution + exam title</label>
+            <label><input id="subjectRowEnabled" type="checkbox" checked /> Subject + course code</label>
+            <label><input id="classRowEnabled" type="checkbox" checked /> Class + date</label>
+            <label><input id="durationRowEnabled" type="checkbox" checked /> Duration + maximum marks</label>
+            <label><input id="instructionsEnabled" type="checkbox" checked /> Instructions</label>
+          </div>
+        </details>
+
+        <div class="field">
+          <label for="institution">Institution</label>
+          <input id="institution" type="text" placeholder="Institution name" />
+        </div>
+
+        <div class="field">
+          <label for="examTitle">Exam title</label>
+          <input id="examTitle" type="text" placeholder="End Semester Examination" />
+        </div>
+
+        <div class="field two-col">
+          <div>
+            <label for="subject">Subject</label>
+            <input id="subject" type="text" placeholder="Fluid Mechanics" />
+          </div>
+          <div>
+            <label for="courseCode">Course code</label>
+            <input id="courseCode" type="text" placeholder="AE301" />
+          </div>
+        </div>
+
+        <div class="field two-col">
+          <div>
+            <label for="className">Class / course</label>
+            <input id="className" type="text" placeholder="B.Tech III Year" />
+          </div>
+          <div>
+            <label for="examDate">Date</label>
+            <input id="examDate" type="text" placeholder="22 September 2026" />
+          </div>
+        </div>
+
+        <div class="field two-col">
+          <div>
+            <label for="duration">Duration</label>
+            <input id="duration" type="text" placeholder="3 Hours" />
+          </div>
+          <div>
+            <label for="maxMarks">Maximum marks</label>
+            <input id="maxMarks" type="text" placeholder="100" />
+          </div>
+        </div>
+
+        <div class="field student-details-control">
+          <label class="check-row" for="studentDetailsEnabled">
+            <input id="studentDetailsEnabled" type="checkbox" />
+            <span>
+              Add student details row
+              <small>Name, Roll No., Date and Signature</small>
+            </span>
+          </label>
+        </div>
+
+        <div id="studentDetailsOptions" class="student-details-options hidden">
+          <div class="field no-margin">
+            <label>Student fields</label>
+            <div class="student-field-toggles">
+              <label><input id="studentNameEnabled" type="checkbox" checked /> Name</label>
+              <label><input id="studentRollEnabled" type="checkbox" checked /> Roll No.</label>
+              <label><input id="studentDateEnabled" type="checkbox" checked /> Date</label>
+              <label><input id="studentSignEnabled" type="checkbox" checked /> Signature</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="instructions">Instructions <span class="hint">one per line</span></label>
+          <textarea id="instructions" rows="4" placeholder="Answer all questions.
+Assume suitable data if necessary."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Institution logo <span class="hint">optional</span></label>
+          <div class="logo-controls">
+            <label class="btn secondary small file-btn">
+              Choose image
+              <input id="logoInput" type="file" accept="image/*" />
+            </label>
+            <button id="removeLogoBtn" class="btn ghost small">Remove</button>
+          </div>
+        </div>
+
+        <hr />
+
+        <h2 class="section-label">Appearance</h2>
+
+        <div class="field">
+          <label for="fontFamily">Font</label>
+          <select id="fontFamily">
+            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value="Arial, Helvetica, sans-serif">Arial</option>
+            <option value="'Courier New', monospace">Courier New</option>
+          </select>
+        </div>
+
+        <div class="field two-col">
+          <div>
+            <label for="fontSize">Body size</label>
+            <select id="fontSize">
+              <option value="10.5">10.5 pt</option>
+              <option value="11" selected>11 pt</option>
+              <option value="11.5">11.5 pt</option>
+              <option value="12">12 pt</option>
+              <option value="13">13 pt</option>
+            </select>
+          </div>
+          <div>
+            <label for="lineHeight">Line spacing</label>
+            <select id="lineHeight">
+              <option value="1.25">Compact</option>
+              <option value="1.4" selected>Normal</option>
+              <option value="1.6">Relaxed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field two-col">
+          <div>
+            <label for="pageMargin">Page margin</label>
+            <select id="pageMargin">
+              <option value="12">12 mm</option>
+              <option value="15">15 mm</option>
+              <option value="18" selected>18 mm</option>
+              <option value="20">20 mm</option>
+              <option value="25">25 mm</option>
+            </select>
+          </div>
+          <div>
+            <label for="questionGap">Question spacing</label>
+            <select id="questionGap">
+              <option value="6">Tight</option>
+              <option value="10" selected>Normal</option>
+              <option value="16">Loose</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="watermark">Watermark <span class="hint">optional</span></label>
+          <input id="watermark" type="text" placeholder="DRAFT" />
+        </div>
+
+        <div class="stats">
+          <div>
+            <span>Questions</span>
+            <strong id="questionCount">0</strong>
+          </div>
+          <div>
+            <span>Calculated marks</span>
+            <strong id="calculatedMarks">0</strong>
+          </div>
+        </div>
+
+        <button id="useCalculatedMarksBtn" class="btn secondary full">Use calculated marks as maximum</button>
+        <div id="marksWarning" class="warning hidden"></div>
+
+        <button id="clearBtn" class="btn danger full">Clear current paper</button>
+      </aside>
+
+      <section class="panel editor-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Questions</h2>
+            <p class="subtle">Separate questions with a blank line.</p>
+          </div>
+        </div>
+
+        <textarea id="questionInput" class="question-editor" spellcheck="true" placeholder="# Section A
+
+Answer ALL questions.
+
+1. Define Reynolds number. [2]
+
+2. Explain the physical meaning of boundary-layer separation. [5]
+
+[MCQ]
+Which quantity is dimensionless? [1]
+A. Lift
+B. Reynolds number
+C. Velocity
+D. Density"></textarea>
+
+        <details class="syntax-help">
+          <summary>Formatting syntax</summary>
+          <div class="syntax-grid">
+            <code># Section A</code><span>Section heading</span>
+            <code>&gt; Answer ALL questions</code><span>Unnumbered section instruction</span>
+            <code>1. Question text [5]</code><span>Numbered question with right-aligned marks</span>
+            <code>[MCQ]</code><span>Starts an MCQ block</span>
+            <code>A. Option text</code><span>MCQ option</span>
+            <code>- item</code><span>Indented bullet / sub-point</span>
+            <code>---</code><span>Thin separator line</span>
+          </div>
+          <p class="subtle">Only numbered entries and <code>[MCQ]</code> blocks are treated as questions. Other standalone lines remain unnumbered instructions.</p>
+        </details>
+      </section>
+
+      <section class="preview-shell" aria-label="A4 print preview">
+        <div class="preview-toolbar">
+          <div>
+            <strong>Print preview</strong>
+            <span>A4 · <span id="pageCount">1 page</span></span>
+          </div>
+          <div class="zoom-controls">
+            <button id="zoomOutBtn" class="icon-btn" aria-label="Zoom out">−</button>
+            <span id="zoomLabel">85%</span>
+            <button id="zoomInBtn" class="icon-btn" aria-label="Zoom in">+</button>
+          </div>
+        </div>
+
+        <div id="previewViewport" class="preview-viewport">
+          <div id="previewPages" class="preview-pages">
+          <article id="paper" class="paper" aria-label="Question paper preview, page 1">
+            <div id="watermarkLayer" class="watermark"></div>
+
+            <header id="paperHeader" class="paper-header">
+              <img id="paperLogo" class="paper-logo hidden" alt="Institution logo" />
+              <div class="paper-heading">
+                <div id="paperInstitution" class="paper-institution"></div>
+                <div id="paperExamTitle" class="paper-exam-title"></div>
+              </div>
+            </header>
+
+            <div id="metaGrid" class="meta-grid">
+              <div id="subjectMetaRow" class="meta-row">
+                <div><span>Subject</span><strong id="paperSubject"></strong></div>
+                <div><span>Course code</span><strong id="paperCourseCode"></strong></div>
+              </div>
+              <div id="classMetaRow" class="meta-row">
+                <div><span>Class / Course</span><strong id="paperClass"></strong></div>
+                <div><span>Date</span><strong id="paperDate"></strong></div>
+              </div>
+              <div id="durationMetaRow" class="meta-row">
+                <div><span>Duration</span><strong id="paperDuration"></strong></div>
+                <div><span>Maximum marks</span><strong id="paperMaxMarks"></strong></div>
+              </div>
+            </div>
+
+            <div id="studentDetailsRow" class="student-details-row hidden"></div>
+
+            <section id="instructionsBlock" class="instructions-block hidden">
+              <strong>Instructions</strong>
+              <ol id="paperInstructions"></ol>
+            </section>
+
+            <div id="questionPreview" class="questions"></div>
+
+            <footer class="paper-footer">
+              <span>Created with Question Paper Maker</span>
+              <span class="page-number">Page 1 of 1</span>
+            </footer>
+          </article>
+          </div>
+        </div>
+      </section>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>Question Paper Maker</strong>
+      <span>Private by design. Free and open source.</span>
+    </div>
+    <nav aria-label="Footer navigation">
+      <a href="index.html">Maker</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com/cibinjoseph/question-paper-maker" target="_blank" rel="noopener noreferrer">Source</a>
+    </nav>
+  </footer>
+
+  <script src="vendor/docx.iife.js"></script>
+  <script src="docx-export.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
